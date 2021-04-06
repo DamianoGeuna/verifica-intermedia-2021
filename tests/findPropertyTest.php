@@ -1,5 +1,7 @@
 <?php
 $users = include(__DIR__."/mockdata_array.php");
+require "../user/user.php";
+require "../lib/UsersSearchFunctions.php";
 // Test ricerca omonimi
 // expectedResult è il risultato della funzione  count applicato al risultato della ricerca 
 $testResultsDataset = array(
@@ -32,8 +34,14 @@ $testResultsDataset = array(
 
 foreach ($testResultsDataset as $row) {
         extract($row);
-		/**
-		 * scrivi qui il tuo test
-		 */
-        
+		
+		$actual=array_filter($users,searchUserName($firstName));
+		$actual2= array_filter($actual,searchUserlastName($lastName));
+
+
+
+		$tmp=count($actual2);
+		if ($expectedResul == $tmp) {
+			echo "Funziona\n";
+		}
 }

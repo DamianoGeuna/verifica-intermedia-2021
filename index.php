@@ -1,21 +1,26 @@
 <?php
 
-require "user/user.php";
+require "./user/user.php";
+require "./lib/JSONReader.php";
 
-$non= new User();
-$non->setId(1);
-$non->setFirstName("Paolo");
-$non->setLastName("Lica");
-$non->setEmail("Tonno@gmail.com");
-$non->setBirthday("2000-03-25");
+$UserList = JSONReader("./dataset/users-management-system.json");
+$UserListDisplay = [];
 
+foreach ($UserList as $user) {
+    $UserObj=new User();
+    $UserObj->setId($user['id']);
+    $UserObj->setFirstName($user['firstName']);
+    $UserObj->setLastName($user['lastName']);
+    $UserObj->setEmail($user['email']);
+    $UserObj->setBirthday($user['birthday']);
+    $UserListDisplay[]=$UserObj;
 
+}
 
-echo $non ->getAge();
-echo "\n";
-echo $non ->maggiorenne();
-
-
+if(isset($_GET['search_nome'])){
+    $searchTextName=trim()
+    $UserListDisplay = array_filter($UserListDisplay,searchUserName($_GET['search_nome']));
+}
 
 
 ?>
@@ -57,35 +62,70 @@ echo $non ->maggiorenne();
                 <th>email</th>
                 <th cellspan="2">età</th>
             </tr>
+            <form action="./index.php">
             <tr>
                 <th>
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="text" id="search_id">
                 </th>
 
                 <th>
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="text" id="search_nome">
                 </th>
 
                 <th>
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="text" id="search_lastname">
                 </th>
 
                 <th>
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="text" id="search_email">
                 </th>
 
                 <th>
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="text" id="search_birthday">
                 </th>
                 <th>
-                    <button class="btn btn-primary">cerca</button>
+                    <button class="btn btn-primary" type="submit">cerca</button>
                 </th>
+            </tr>
+
+
+
+            
+
+            <?php
+
+            foreach ($UserListDisplay as $row) {
+                $id = $row->getId();
+                $nome = $row->getFirstName();
+                $cognome = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($row->getLastName())))); ;
+                $email = $row->getEmail();
+                $compleanno = $row->getAge();
+                ?>
+            <tr>
+                <td><?= $id?> </td>
+                <td><?= $nome?> </td>
+                <td><?= $cognome?> </td>
+                <td><?= $email?> </td>
+                <td><?= $eta?> </td>
+
+            </tr>  
+
+            <?php
+        }
+        ?>
+
+
+
+
+
             </tr>
             
 
 
 
 
+
+            </form>
         </table>
     </div>
 </body>

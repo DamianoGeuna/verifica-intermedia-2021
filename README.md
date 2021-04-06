@@ -12,11 +12,11 @@ Dare la priorità alla consegna su formaretedad formato zip
     - userId
     - firstName
     - lastName
-    - birthday
+    - birthday (questo si rifiuta)
     - email 
 
-- [ ] Implementare il metodo **getAge** che permette di ottenere l'età dell'utente
-- [ ] Implementare il metodo **isAdult** che restituisce **true** se l'utente e maggiorenne **false** e se l'utente è minorenne.
+- [-] Implementare il metodo **getAge** che permette di ottenere l'età dell'utente
+- [-] Implementare il metodo **isAdult** che restituisce **true** se l'utente e maggiorenne **false** e se l'utente è minorenne.
 
 ## Creazione del layout
 
