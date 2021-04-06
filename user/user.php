@@ -122,6 +122,17 @@ class User
         return $eta;
     }
 
+    public function maggiorenne():bool
+    {
+        $age=$this->getAge();
+        if($age>=18)
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 
 
